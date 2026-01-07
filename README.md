@@ -15,7 +15,9 @@ The project addresses the problem of automatic music genre classification using 
 
 ## Datasets
 
-This project uses the [GTZAN Music Genre Classification dataset](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification), which is publicly available on Kaggle. The dataset contains audio tracks labeled by music genre and is used for supervised music genre classification.
+This project uses the [GTZAN Music Genre Classification dataset](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification), which is publicly available on Kaggle.  
+The dataset contains audio tracks labeled by music genre and is used for supervised music genre classification.
+The dataset also includes pre-extracted audio features in CSV format, which were not used in the main experiments.
 
 Due to size and licensing constraints, the dataset is not included in this repository.
 

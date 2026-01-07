@@ -39,7 +39,7 @@ for genre in genres:
             continue
 
         
-print(len(failed_files))
+print(f'Number of files failed to load: {failed_files}')
 X = np.array(X)
 y_labels = np.array(y_labels)
 
