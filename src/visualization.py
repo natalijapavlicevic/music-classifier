@@ -55,7 +55,7 @@ def compare_genres(genre_paths, save_dir='figures'):
 
     plt.figure(figsize=(14, 6))
 
-    for i, (genre, path) in enumerate(genres.items()):
+    for i, (genre, path) in enumerate(genre_paths.items()):
         y, sr = librosa.load(path, sr=22050)
         mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
         mel_db = librosa.power_to_db(mel, ref=np.max)
