@@ -55,15 +55,20 @@ python3 src/preprocessing.py
 ## Data Visualization
 
 - To better understand the extracted features, several  visualizations are generated  
-- Audio waveforms  illustrate  signal amplitude over time (one for each genre)
-- Mel-spectrograms are visualized to show the time–frequency representation of audio signals
+- **Audio waveforms** illustrate  signal amplitude over time (one for each genre)
+- **Mel-spectrograms** are visualized to show the time–frequency representation of audio signals
 - A comparison of mel-spectrograms from different music genres highlights clear spectral differences between genres
-- Generated figures are saved in the `figures/` directory and are used for analysis and reporting
+- Generated figures are saved in the `data/figures/` directory.
+- The list of audio files used in the visualizations is recorded in `data/figures/used_files.txt`.
 
 To execute data visualization, position yourself in root directory of this repository and run:
 
 ```bash
-python3 src/visualization.py
-```
-Depending on the flag set, the corresponding visualization functions are executed using selected audio files from `data/raw/genres_original`.
+python3 src/visualization.py [FLAGS]
+```  
 
+| Flag               | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `--plot-waveform`  | Generate waveform plots                                          |
+| `--plot-mel`       | Generate mel-spectrograms                                        |
+| `--compare-genres` | Compare each selected file with a random file from another genre |
