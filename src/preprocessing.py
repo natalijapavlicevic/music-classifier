@@ -28,7 +28,13 @@ for genre in genres:
             mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20)
             mfcc_mean = np.mean(mfcc, axis=1)
             mfcc_std = np.std(mfcc, axis=1)
-            features = np.concatenate((mfcc_mean, mfcc_std))
+            
+            mel = librosa.feature.melspectrogram(y=y,sr=sr,n_mels=128)
+            mel_db = librosa.power_to_db(mel, ref=np.max)
+            mel_mean = np.mean(mel_db, axis=1)
+            mel_std = np.std(mel_db, axis=1)
+            
+            features = np.concatenate((mfcc_mean, mfcc_std,mel_mean,mel_std))
             
             X.append(features)
             y_labels.append(genre)
