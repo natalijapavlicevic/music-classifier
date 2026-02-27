@@ -78,3 +78,13 @@ The baseline model is a fully connected neural network (MLP) trained on precompu
 The model shows moderate overfitting, as training accuracy approaches 100% while validation and test accuracy stabilize around 70%. This is expected for a simple MLP without regularization or convolutional layers.
 
 The baseline serves as a performance reference for future improvements (e.g., regularization, CNN-based models, or data augmentation).
+
+### Running the Baseline Model
+
+Make sure the precomputed feature files (`X.npy` and `y.npy`) are available in the `data/processed/` directory.
+
+To train and evaluate the baseline model, run:
+
+```bash
+python3 src/baseline_model.py
+```
