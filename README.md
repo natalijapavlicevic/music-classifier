@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ## Data Preprocessing
 
 - Raw audio files are stored in `data/raw/genres_original`
-- Files are loaded (using `librosa` python library), the ones that fail to load are skipped and logged in `failed_files`
+- Files are loaded (using `librosa` python library), the ones that fail to load are skipped and logged in `failed_files` varable
 - Features are extracted using **MFCC** (Mel-Frequency Cepstral Coefficients):
     - 20 coefficients per frame
     - Calculated mean and standard deviation for each coefficient
@@ -51,3 +51,30 @@ To execute data preprocessing, position yourself in root directory of this repos
 ```bash
 python3 src/preprocessing.py
 ```
+
+## Baseline Model
+
+The baseline model is a fully connected neural network (MLP) trained on precomputed MFCC statistical features (mean and standard deviation).
+
+### Architecture
+
+- Dense (128 units, ReLU)
+- Dense (64 units, ReLU)
+- Dense (10 units, Softmax)
+
+### Training Setup
+
+- Loss function: `sparse_categorical_crossentropy`
+- Optimizer: `Adam`
+- Epochs: 25
+- Batch size: 32
+
+### Results
+
+- Training accuracy: ~98%
+- Validation accuracy: ~70%
+- Test accuracy: 67%
+
+The model shows moderate overfitting, as training accuracy approaches 100% while validation and test accuracy stabilize around 70%. This is expected for a simple MLP without regularization or convolutional layers.
+
+The baseline serves as a performance reference for future improvements (e.g., regularization, CNN-based models, or data augmentation).
