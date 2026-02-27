@@ -125,50 +125,50 @@ def main(args):
     ]
     
     with open(LOG_FILE, "w") as log_file:
-     log_file.write("Used audio files\n")
-     log_file.write("=================\n\n")
+        log_file.write("Used audio files\n")
+        log_file.write("=================\n\n")
 
-     for genre in genres:
-         genre_dir = os.path.join(BASE_DATA_DIR, genre)
-         selected_files = get_random_files(genre_dir, FILES_PER_GENRE)
+        for genre in genres:
+            genre_dir = os.path.join(BASE_DATA_DIR, genre)
+            selected_files = get_random_files(genre_dir, FILES_PER_GENRE)
 
-         log_file.write(f"{genre.upper()}:\n")
+            log_file.write(f"{genre.upper()}:\n")
 
-         for i, filename in enumerate(selected_files, start=1):
-             path = os.path.join(genre_dir, filename)
-             log_file.write(f"  {filename}\n")
+            for i, filename in enumerate(selected_files, start=1):
+                path = os.path.join(genre_dir, filename)
+                log_file.write(f"  {filename}\n")
 
-             if args.plot_waveform:
-                 plot_waveform(path, genre, i)
+                if args.plot_waveform:
+                    plot_waveform(path, genre, i)
 
-             if args.plot_mel:
-                 plot_mel_spectrogram(path, genre, i)
+                if args.plot_mel:
+                    plot_mel_spectrogram(path, genre, i)
 
-             if args.compare_genres:
-                 other_genres = [g for g in genres if g != genre]
-                 other_genre = random.choice(other_genres)
+                if args.compare_genres:
+                    other_genres = [g for g in genres if g != genre]
+                    other_genre = random.choice(other_genres)
 
-                 other_dir = os.path.join(BASE_DATA_DIR, other_genre)
-                 other_file = get_random_file(other_dir)
-                 other_path = os.path.join(other_dir, other_file)
+                    other_dir = os.path.join(BASE_DATA_DIR, other_genre)
+                    other_file = get_random_file(other_dir)
+                    other_path = os.path.join(other_dir, other_file)
 
-                 log_file.write(
-                     f"    COMPARE WITH: {other_genre}/{other_file}\n"
-                 )
+                    log_file.write(
+                        f"    COMPARE WITH: {other_genre}/{other_file}\n"
+                    )
 
-                 compare_two_files(
-                     ref_path=path,
-                     ref_label=genre.capitalize(),
-                     other_path=other_path,
-                     other_label=other_genre.capitalize(),
-                     save_path=os.path.join(
-                         FIGURES_DIR,
-                         genre,
-                         f"compare_{i}.png"
-                     )
-                 )
+                    compare_two_files(
+                        ref_path=path,
+                        ref_label=genre.capitalize(),
+                        other_path=other_path,
+                        other_label=other_genre.capitalize(),
+                        save_path=os.path.join(
+                            FIGURES_DIR,
+                            genre,
+                            f"compare_{i}.png"
+                        )
+                    )
 
-         log_file.write("\n")
+            log_file.write("\n")
 
 
 if __name__ == "__main__":
