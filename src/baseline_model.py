@@ -6,9 +6,13 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import confusion_matrix, classification_report
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Input, Dense
 from tensorflow.keras.utils import to_categorical
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 X = np.load('data/processed/X.npy')
 y = np.load('data/processed/y.npy')
@@ -51,4 +55,27 @@ history = model.fit(
 
 loss, acc = model.evaluate(X_test_scaled, y_test)
 print(f"\nTest accuracy: {acc:.4f}")
+
+y_pred_probs = model.predict(X_test_scaled) 
+
+y_pred_labels = np.argmax(y_pred_probs, axis=1)
+y_test_labels = np.argmax(y_test, axis=1)
+
+cm = confusion_matrix(y_test_labels, y_pred_labels)
+
+genres = ['blues', 'classical', 'country', 'disco', 'hiphop', 
+          'jazz', 'metal', 'pop', 'reggae', 'rock']
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(cm, annot=True, fmt='d', xticklabels=genres, yticklabels=genres, cmap='Blues')
+plt.xlabel('Predicted genre')
+plt.ylabel('Actual genre')
+plt.title('Confusion matrix - Baseline MLP Model')
+os.makedirs('results', exist_ok=True)
+plt.savefig('results/mlp_confusion_matrix.png')
+
+print("\nDetailed classification report:\n")
+print(classification_report(y_test_labels, y_pred_labels, target_names=genres))
+
+
 

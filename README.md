@@ -79,6 +79,8 @@ The model shows moderate overfitting, as training accuracy approaches 100% while
 
 The baseline serves as a performance reference for future improvements (e.g., regularization, CNN-based models, or data augmentation).
 
+Confusion matrix is saved at `results/mlp_confusion_matrix.png`.
+
 ### Running the Baseline Model
 
 Make sure the precomputed feature files (`X.npy` and `y.npy`) are available in the `data/processed/` directory.

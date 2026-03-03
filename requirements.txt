@@ -20,6 +20,7 @@ google-pasta==0.2.0
 grpcio==1.78.0
 h5py==3.15.1
 idna==3.11
+ImageIO==2.37.2
 ipykernel==7.1.0
 ipython==9.8.0
 ipython_pygments_lexers==1.1.1
@@ -85,8 +86,10 @@ pytz==2025.2
 pyzmq==27.1.0
 requests==2.32.5
 rich==14.3.3
+scikit-image==0.26.0
 scikit-learn==1.8.0
 scipy==1.16.3
+seaborn==0.13.2
 setuptools==80.9.0
 six==1.17.0
 soundfile==0.13.1
@@ -98,6 +101,7 @@ tensorboard-data-server==0.7.2
 tensorflow==2.20.0
 termcolor==3.3.0
 threadpoolctl==3.6.0
+tifffile==2026.2.24
 torch==2.9.1
 torchaudio==2.9.1
 tornado==6.5.4
