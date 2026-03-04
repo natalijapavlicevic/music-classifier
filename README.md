@@ -110,3 +110,28 @@ python3 src/visualization.py [FLAGS]
 | `--plot-waveform`  | Generate waveform plots                                          |
 | `--plot-mel`       | Generate mel-spectrograms                                        |
 | `--compare-genres` | Compare each selected file with a random file from another genre |
+
+## Main Model: CNN on Mel-Spectrograms
+### Preprocessing:
+
+- Audio segmented into 3-second chunks to increase dataset size (1,000 → 10,000 samples).
+- Converted raw audio to Mel-spectrograms (128x128).
+- Applied Decibel scaling and global normalization (0-1 range).
+
+### Model Architecture:
+
+- 4 Convolutional blocks with Batch Normalization.
+- Global Average Pooling (to reduce parameter count and overfitting).
+- Dense layers with Dropout (0.5).
+
+
+### Results
+**Final Accuracy**: ~71-78% (depending on split).  
+**Key Learning**: The transition from MFCC averages to 2D spectrograms allowed the model to "hear" textures and rhythms, not just average frequencies.
+
+
+### How to run
+```bash
+python3 src/build_spectogram_dataset.py
+python3 src/cnn_model.py
+```
