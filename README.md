@@ -119,12 +119,18 @@ python3 src/baseline_model.py
 - Converted raw audio to Mel-spectrograms (128x128).
 - Applied Decibel scaling and global normalization (0-1 range).
 
-### Model Architecture:
+### Architecture:
 
 - 4 Convolutional blocks with Batch Normalization.
 - Global Average Pooling (to reduce parameter count and overfitting).
 - Dense layers with Dropout (0.4).
 
+### Training Setup
+
+- Loss function: `sparse_categorical_crossentropy`
+- Optimizer: `Adam`
+- Epochs: 100
+- Batch size: 32
 
 ### Results
 **Final Accuracy**: ~71-78% (depending on split).  

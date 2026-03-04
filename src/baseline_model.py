@@ -71,8 +71,8 @@ sns.heatmap(cm, annot=True, fmt='d', xticklabels=genres, yticklabels=genres, cma
 plt.xlabel('Predicted genre')
 plt.ylabel('Actual genre')
 plt.title('Confusion matrix - Baseline MLP Model')
-os.makedirs('results', exist_ok=True)
-plt.savefig('results/mlp_confusion_matrix.png')
+os.makedirs('results/mlp', exist_ok=True)
+plt.savefig('results/mlp/confusion_matrix.png')
 
 print('\nDetailed classification report:\n')
 print(classification_report(y_test_labels, y_pred_labels, target_names=genres))

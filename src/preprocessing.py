@@ -2,8 +2,6 @@ import librosa
 import os
 import numpy as np
 
-data_dir = 'data/raw/genres_original'
-
 genres = ['blues', 'classical', 'country', 'disco',
           'hiphop', 'jazz', 'metal', 'pop', 'reggae',
           'rock']
@@ -13,7 +11,7 @@ X = []
 y_labels = []
 
 for genre in genres:
-    genre_path = os.path.join(data_dir, genre)
+    genre_path = os.path.join('data/raw/genres_original', genre)
     for file in os.listdir(genre_path):
         if not file.endswith('.wav'):
             continue
