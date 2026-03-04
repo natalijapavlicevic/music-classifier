@@ -22,8 +22,6 @@ for genre in genres:
         
         try: 
             y, sr = librosa.load(path, sr=22050)
-            # y - audio signal (1D numpy array, contains sound amplitudes through time)
-            # sr - sampling rate
             
             mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20)
             mfcc_mean = np.mean(mfcc, axis=1)

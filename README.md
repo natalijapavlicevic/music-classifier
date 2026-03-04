@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ## Data Preprocessing
 
 - Raw audio files are stored in `data/raw/genres_original`
-- Files are loaded (using `librosa` python library), the ones that fail to load are skipped and logged in `failed_files` varable
+- Files are loaded (using `librosa` python library), the ones that fail to load are skipped and logged in `failed_files` variable
 - Features are extracted using **MFCC** (Mel-Frequency Cepstral Coefficients):
     - 20 coefficients per frame
     - Calculated mean and standard deviation for each coefficient
@@ -51,8 +51,28 @@ To execute data preprocessing, position yourself in root directory of this repos
 ```bash
 python3 src/preprocessing.py
 ```
+## Data Visualization
 
-## Baseline Model
+- To better understand the extracted features, several  visualizations are generated  
+- **Audio waveforms** illustrate  signal amplitude over time (one for each genre)
+- **Mel-spectrograms** are visualized to show the time–frequency representation of audio signals
+- A comparison of mel-spectrograms from different music genres highlights clear spectral differences between genres
+- Generated figures are saved in the `data/figures/` directory.
+- The list of audio files used in the visualizations is recorded in `data/figures/used_files.txt`.
+
+To execute data visualization, position yourself in root directory of this repository and run:
+
+```bash
+python3 src/visualization.py [FLAGS]
+```  
+
+| Flag               | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `--plot-waveform`  | Generate waveform plots                                          |
+| `--plot-mel`       | Generate mel-spectrograms                                        |
+| `--compare-genres` | Compare each selected file with a random file from another genre |
+
+## Baseline Model: MLP on MFCC
 
 The baseline model is a fully connected neural network (MLP) trained on precomputed MFCC statistical features (mean and standard deviation).
 
@@ -60,11 +80,12 @@ The baseline model is a fully connected neural network (MLP) trained on precompu
 
 - Dense (128 units, ReLU)
 - Dense (64 units, ReLU)
+- Dense (32 units, ReLU)
 - Dense (10 units, Softmax)
 
 ### Training Setup
 
-- Loss function: `sparse_categorical_crossentropy`
+- Loss function: `categorical_crossentropy`
 - Optimizer: `Adam`
 - Epochs: 25
 - Batch size: 32
@@ -90,26 +111,6 @@ To train and evaluate the baseline model, run:
 ```bash
 python3 src/baseline_model.py
 ```
-## Data Visualization
-
-- To better understand the extracted features, several  visualizations are generated  
-- **Audio waveforms** illustrate  signal amplitude over time (one for each genre)
-- **Mel-spectrograms** are visualized to show the time–frequency representation of audio signals
-- A comparison of mel-spectrograms from different music genres highlights clear spectral differences between genres
-- Generated figures are saved in the `data/figures/` directory.
-- The list of audio files used in the visualizations is recorded in `data/figures/used_files.txt`.
-
-To execute data visualization, position yourself in root directory of this repository and run:
-
-```bash
-python3 src/visualization.py [FLAGS]
-```  
-
-| Flag               | Description                                                      |
-| ------------------ | ---------------------------------------------------------------- |
-| `--plot-waveform`  | Generate waveform plots                                          |
-| `--plot-mel`       | Generate mel-spectrograms                                        |
-| `--compare-genres` | Compare each selected file with a random file from another genre |
 
 ## Main Model: CNN on Mel-Spectrograms
 ### Preprocessing:
@@ -122,7 +123,7 @@ python3 src/visualization.py [FLAGS]
 
 - 4 Convolutional blocks with Batch Normalization.
 - Global Average Pooling (to reduce parameter count and overfitting).
-- Dense layers with Dropout (0.5).
+- Dense layers with Dropout (0.4).
 
 
 ### Results

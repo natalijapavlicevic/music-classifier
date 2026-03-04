@@ -1,6 +1,6 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # sakriva info poruke TF-a
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # opcionalno, uklanja oneDNN poruke
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import numpy as np
@@ -20,7 +20,7 @@ y = np.load('data/processed/y.npy')
 
 le = LabelEncoder()
 y_encoded = le.fit_transform(y)
-y_cat = to_categorical(y_encoded) # sta je ovo
+y_cat = to_categorical(y_encoded) 
 
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -74,7 +74,7 @@ plt.title('Confusion matrix - Baseline MLP Model')
 os.makedirs('results', exist_ok=True)
 plt.savefig('results/mlp_confusion_matrix.png')
 
-print("\nDetailed classification report:\n")
+print('\nDetailed classification report:\n')
 print(classification_report(y_test_labels, y_pred_labels, target_names=genres))
 
 

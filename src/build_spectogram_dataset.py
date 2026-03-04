@@ -6,10 +6,9 @@ BASE_DATA_DIR = "data/raw/genres_original"
 TARGET_DATA_DIR = "data/processed"
 
 SAMPLE_RATE = 22050
-TRACK_DURATION = 30 # GTZAN pesme su 30s
+TRACK_DURATION = 30
 SAMPLES_PER_TRACK = SAMPLE_RATE * TRACK_DURATION
 
-# Parametri za segmentaciju (OVO JE KLJUČNO)
 NUM_SEGMENTS = 10 
 SAMPLES_PER_SEGMENT = int(SAMPLES_PER_TRACK / NUM_SEGMENTS)
 N_MELS = 128
@@ -22,10 +21,9 @@ genres = sorted([g for g in os.listdir(BASE_DATA_DIR) if os.path.isdir(os.path.j
 
 for label, genre in enumerate(genres):
     genre_path = os.path.join(BASE_DATA_DIR, genre)
-    print(f"Obradjujem: {genre}...")
     
     for file in os.listdir(genre_path):
-        if not file.endswith(".wav") or file == "jazz.00054.wav": # Oštećen fajl u GTZAN
+        if not file.endswith(".wav") or file == "jazz.00054.wav":
             continue
 
         file_path = os.path.join(genre_path, file)
@@ -34,22 +32,19 @@ for label, genre in enumerate(genres):
         except Exception as e:
             continue
 
-        # Deli pesmu na 10 delova (svaki deo je ~3 sekunde)
         for s in range(NUM_SEGMENTS):
             start_sample = SAMPLES_PER_SEGMENT * s
             finish_sample = start_sample + SAMPLES_PER_SEGMENT
             
             chunk = signal[start_sample:finish_sample]
             
-            # Mel-spektrogram za taj chunk
             mel = librosa.feature.melspectrogram(y=chunk, sr=sr, n_mels=N_MELS)
             mel_db = librosa.power_to_db(mel, ref=np.max)
             
-            # Normalizacija na fiksni opseg -80 do 0 dB (skalirano na 0 do 1)
             mel_db = (mel_db + 80) / 80 
 
-            # Osiguravamo fiksnu širinu (treba da bude ~130 piksela za 3s)
-            # Ako je chunk malo kraći zbog zaokruživanja, dodajemo padding
+            # making sure width is fixed
+            # if chunk is a little bit shorter, we are adding padding
             if mel_db.shape[1] < 128:
                 mel_db = np.pad(mel_db, ((0,0), (0, 128 - mel_db.shape[1])), mode='constant')
             else:
