@@ -137,7 +137,7 @@ python3 src/baseline_model.py
 **Key Learning**: The transition from MFCC averages to 2D spectrograms allowed the model to "hear" textures and rhythms, not just average frequencies.
 
 
-### How to run
+### Running the CNN model
 ```bash
 python3 src/build_spectogram_dataset.py
 python3 src/cnn_model.py
